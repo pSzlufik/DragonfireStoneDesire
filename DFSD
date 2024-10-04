@@ -1,0 +1,89 @@
+run () {
+xdotool search --name 'Firestone' windowactivate sleep 0.5
+WID=$(xdotool getactivewindow)
+let rep=$1
+let level=$2
+let fsTree=$4
+let metTree=$5
+for i in {1..$rep}
+do
+  if level>=120
+    xdotool sleep 0.2
+    alchemy
+  fi
+  if level>=50
+    xdotool sleep 0.2
+    campaignLoot
+    xdotool sleep 0.2
+    engi
+  fi
+  if level>=10
+    exped
+    
+  fi
+  
+  
+  
+
+  xdotool sleep 0.2
+done
+}
+
+alchemy () {
+xdotool key --window $WID a sleep 0.6
+if $1="y"
+  xdotool mousemove --window $WID 950 800 sleep 0.2 click --window $WID 1 sleep 0.1
+fi
+if $2="y"
+  xdotool mousemove --window $WID 1300 800 sleep 0.2 click --window $WID 1 sleep 0.1
+fi
+if $3="y"
+  xdotool mousemove --window $WID 1650 800 sleep 0.2 click --window $WID 1 sleep 0.1
+fi
+xdotool mousemove --window $WID 1839 55 sleep 0.2 click --window $WID --repeat 4 --delay 200 1
+xdotool mousemove --window $WID 3 160 sleep 0.1 click --window $WID 1 sleep 0.1
+}
+
+campaignLoot () {
+
+}
+
+climbup () {
+
+}
+
+engi () {
+
+}
+
+exped () {
+
+}
+
+guardian () {
+
+}
+
+lib () {
+
+}
+
+mapFinish () {
+
+}
+
+mapStart () {
+
+}
+
+oracle () {
+
+}
+
+serverSwap () {
+
+}
+
+tavern () {
+
+}
