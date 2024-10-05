@@ -1,54 +1,97 @@
+##########################################################################################################################################
+#  ██████   ██████  ██████  ██    ██      ██████  ███████     ████████ ██   ██ ███████     ███████  ██████ ██████  ██ ██████  ████████   #
+#  ██   ██ ██    ██ ██   ██  ██  ██      ██    ██ ██             ██    ██   ██ ██          ██      ██      ██   ██ ██ ██   ██    ██      #
+#  ██████  ██    ██ ██   ██   ████       ██    ██ █████          ██    ███████ █████       ███████ ██      ██████  ██ ██████     ██      #
+#  ██   ██ ██    ██ ██   ██    ██        ██    ██ ██             ██    ██   ██ ██               ██ ██      ██   ██ ██ ██         ██      #
+#  ██████   ██████  ██████     ██         ██████  ██             ██    ██   ██ ███████     ███████  ██████ ██   ██ ██ ██         ██      #
+##########################################################################################################################################    
+
+######################################
+#  ╦═╗╦ ╦╔╗╔  ┌─┐┌─┐┌┬┐┌┬┐┌─┐┌┐┌┌┬┐  #
+#  ╠╦╝║ ║║║║  │  │ │││││││├─┤│││ ││  #
+#  ╩╚═╚═╝╝╚╝  └─┘└─┘┴ ┴┴ ┴┴ ┴┘└┘─┴┘  #
+######################################
+# to call it write
+#run <how many repetitions> <character level> "<dragon blood?>; <dust?>; <exotic coins?>" "<campaign stage easy>; <campaign stage normal>; <campaign stage hard>" "<fs research tree>;<wanted upgrade no. 1>; <wanted upgrade no. 2>" "<met research tree;<wanted upgrade no. 1>;<wanted upgrade no.2>"
+#for instance
+#run 100 280 "80;30;1" "1;0;0" "4;9;14" "5;2;7"  
+#this function will:
+#- run a loop 100 times
+#- collect as if you were level 280 
+    #at the level every town/guild feature is already unlocked; if it was for instance level 100, it would ommit alchemist and oracle, if it weas level 49, it would ommit engineer and campaign loot too, and so on
+
+#- during the loop, you will conduct alchemy using only dragon blood
+    #if you want to waste dust or exotic coins be my guest! 1 for "yes" and 0 for "no"
+
+#- during the loop, you will try to finish campaign stage 80 easy, stage 30 normal and stage 1 hard
+    #this is great if these stages seem doable, but you don't want to manually click until a perfect run happens, I myself advanced like 7 stars (which is at least one milestone!!!) this way over some nights.
+
+#- during the loop, do meteorite researches numbers 9 and 14 respectively at current (4th) meteorite research tree (starts with 9, then 14); 
+    #ideally it means that you gradually do the most desired research and when it is yet locked, you just build your way towards it
+    #for instance this one is good if 9 is desired research, but you need research 14 at level 5 and research 14 is yet locked by research 17
+
+#- during the loop, do firestone researches numbers 2 and 7 at current (5th) firestone research tree (see referential chart or just count yourself, starting from left and from the top each time)
+#note that the length of a loop increases with level, this is more notable if you run warfront to skip waiting
+#if you want to skip meteorite or firestone research, write tree level as 0
+#if you want to skip campaign, write all stages as 0
+
+
 run () {
 xdotool search --name 'Firestone' windowactivate sleep 0.5
 WID=$(xdotool getactivewindow)
-let rep=$1
-let level=$2
-let fsTree=$4
-let metTree=$5
-for i in {1..$rep}
+    local reps=$1            # 1st argument to local variable "reps"
+    local lvl=$2             # 2nd argument to local variable "lvl"
+    
+    IFS=';' read -r alchemyDB alchemyDust alchemyCoins <<< "$3"
+
+    IFS=';' read -r campaignEasy campaignNormal campaignHard <<< "$4"
+
+    IFS=';' read -r metTree met1 met2 <<< "$5"
+
+    IFS=';' read -r fsTree fs1 fs2 <<< "$6"
+    
+
+    # The variables are now set and can be used as needed.
+
+for i in {1..$reps}
 do
-  if level>=120
+  if [ "$lvl" -ge 200 ]; then
     xdotool sleep 0.2
-    alchemy
+    oracle
+  if [ "$lvl" -ge 120 ]; then
+    xdotool sleep 0.2
+    alchemy $alchemyDB $alchemyDust $alchemyCoins
   fi
-  if level>=50
+  if [ "$lvl" -ge 50 ]; then
     xdotool sleep 0.2
     campaignLoot
     xdotool sleep 0.2
     engi
   fi
-  if level>=10
+  if [ "$lvl" -ge 10 ]; then
     exped
-    
+    xdotool sleep 0.2
+    lib $fsTree $metTree $fs1 $fs2 $met1 $met2
   fi
-  
-  
-  
 
-  xdotool sleep 0.2
 done
 }
 
 alchemy () {
 xdotool key --window $WID a sleep 0.6
-if $1="y"
+if [ "$1" -eq 1 ]; then
   xdotool mousemove --window $WID 950 800 sleep 0.2 click --window $WID 1 sleep 0.1
 fi
-if $2="y"
+if [ "$2" -eq 1 ]; then
   xdotool mousemove --window $WID 1300 800 sleep 0.2 click --window $WID 1 sleep 0.1
 fi
-if $3="y"
+if [ "$3" -eq 1 ]; then
   xdotool mousemove --window $WID 1650 800 sleep 0.2 click --window $WID 1 sleep 0.1
 fi
-xdotool mousemove --window $WID 1839 55 sleep 0.2 click --window $WID --repeat 4 --delay 200 1
-xdotool mousemove --window $WID 3 160 sleep 0.1 click --window $WID 1 sleep 0.1
+reset
 }
 
 campaignLoot () {
-
-}
-
-climbup () {
 
 }
 
@@ -65,7 +108,28 @@ guardian () {
 }
 
 lib () {
+xdotool key --window $WID L sleep 1
+xdotool mousemove --window $WID 1800 630 sleep 0.2 click --window $WID 1 sleep 0.2
+xdotool mousemove --window $WID 1 1 sleep 0.2
+fsPattern=$(($1 % 3))
+metPattern=$(($2 % 5))
+temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fs1" 16)
+IFS=';' read -r fsColumn1, fsRow1 <<< "$temp"
+temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fs2" 16)
+IFS=',' read -r fsColumn2, fsRow2 <<< "$temp"
+xdotool click --window $WID --repeat 120 --delay 1 4 sleep 0.2
+xdotool click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "@fsColumn1") --delay 1 5
+xdotool mousemove --window $WID 20 $(getSingleRowElement "${fsRows[@]}" "@fsRow1") sleep 0.5 click --window $WID 1
+xdotool mousemove --window $WID 750 790 sleep 0.5 click --window $WID 1
+xdotool mousemove --window $WID 20 20 sleep 0.5 click --window $WID --repeat 2 --delay 150 1
 
+xdotool click --window $WID --repeat 90 --delay 1 4 sleep 0.2
+xdotool click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "@fsColumn2") --delay 1 5
+xdotool mousemove --window $WID 20 $(getSingleRowElement "${fsRows[@]}" "@fsRow2") sleep 0.5 click --window $WID 1
+xdotool mousemove --window $WID 750 790 sleep 0.5 click --window $WID 1
+xdotool mousemove --window $WID 20 20 sleep 0.5 click --window $WID --repeat 2 --delay 150 1
+
+reset
 }
 
 mapFinish () {
@@ -87,3 +151,68 @@ serverSwap () {
 tavern () {
 
 }
+
+############################################################################################################################################################################
+#   █████  ██    ██  ██████  ███    ███ ███████ ███    ██ ████████  █████  ██████  ██    ██     ███████ ██    ██ ███    ██  ██████ ████████ ██  ██████  ███    ██ ███████  #
+#  ██   ██ ██    ██ ██       ████  ████ ██      ████   ██    ██    ██   ██ ██   ██  ██  ██      ██      ██    ██ ████   ██ ██         ██    ██ ██    ██ ████   ██ ██       #
+#  ███████ ██    ██ ██   ███ ██ ████ ██ █████   ██ ██  ██    ██    ███████ ██████    ████       █████   ██    ██ ██ ██  ██ ██         ██    ██ ██    ██ ██ ██  ██ ███████  #
+#  ██   ██ ██    ██ ██    ██ ██  ██  ██ ██      ██  ██ ██    ██    ██   ██ ██   ██    ██        ██      ██    ██ ██  ██ ██ ██         ██    ██ ██    ██ ██  ██ ██      ██  #
+#  ██   ██  ██████   ██████  ██      ██ ███████ ██   ████    ██    ██   ██ ██   ██    ██        ██       ██████  ██   ████  ██████    ██    ██  ██████  ██   ████ ███████  #
+############################################################################################################################################################################
+
+############################
+#  ┌┬┐┌─┐┌┬┐┬─┐┬┌─┐┌─┐┌─┐  #
+#  │││├─┤ │ ├┬┘││  ├┤ └─┐  #
+#  ┴ ┴┴ ┴ ┴ ┴└─┴└─┘└─┘└─┘  #
+############################
+
+getMatrixElement () {
+    local matrix=("$@")  # Take all arguments as the matrix
+    local row=$1         # First argument is the row index
+    local col=$2         # Second argument is the column index
+    local cols=$3        # Third argument is the number of columns
+    local index=$((row * cols + col))  # Calculate the index
+    echo "${matrix[$index]}"  # Return the element at the calculated index
+}
+
+getSingleRowElement () {
+    local matrix=("$@")  # All arguments are treated as the matrix
+    local col=$1         # First argument is the column index
+    echo "${matrix[$col]}"  # Return the element at the column index
+}
+
+# Define the matrix
+declare -a fsRows=(
+    "260" "400" "520" "640" "780"
+)
+declare -a fsScrollsPerColumn=(
+    "6" "22" "39" "55" "72" "89" "89" "89"
+)
+
+declare -a fsTree=(
+    "1,3" "1,4" "2,1" "2,3" "2,5" "3,2" "3,4" "4,3" "5,2" "5,4" "6,3" "7,1" "7,3" "7,5" "8,2" "8,4"
+    "1,3" "2,2" "2,4" "3,1" "3,3" "3,5" "4,3" "5,2" "5,4" "6,2" "6,4" "7,2" "7,4" "8,1" "8,3" "8,5"
+    "1,1" "1,3" "1,5" "2,2" "2,4" "3,3" "4,3" "5,2" "5,4" "6,2" "6,4" "7,2" "7,4" "8,1" "8,3" "8,5"
+)
+
+
+#####################
+#  ┬─┐┌─┐┌─┐┌─┐┌┬┐  #
+#  ├┬┘├┤ └─┐├┤  │   #
+#  ┴└─└─┘└─┘└─┘ ┴   #
+#####################
+reset () {
+xdotool mousemove --window $WID 1839 55 sleep 0.2 click --window $WID --repeat 4 --delay 200 1
+xdotool mousemove --window $WID 3 160 sleep 0.1 click --window $WID 1 sleep 0.1
+}
+
+
+###########################################################################################
+#   █████  ██    ██ ████████  ██████   ██████ ██      ██  ██████ ██   ██ ███████ ██████   #
+#  ██   ██ ██    ██    ██    ██    ██ ██      ██      ██ ██      ██  ██  ██      ██   ██  #
+#  ███████ ██    ██    ██    ██    ██ ██      ██      ██ ██      █████   █████   ██████   #
+#  ██   ██ ██    ██    ██    ██    ██ ██      ██      ██ ██      ██  ██  ██      ██   ██  #
+#  ██   ██  ██████     ██     ██████   ██████ ███████ ██  ██████ ██   ██ ███████ ██   ██  #
+###########################################################################################
+
+#coming soon™
