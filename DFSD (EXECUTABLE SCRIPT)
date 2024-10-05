@@ -130,8 +130,8 @@ do
     fi
     serverSwap $startingServer
     xdotool 20
-    echo "$SECONDS"
 done
+echo "$SECONDS"
 
 }
 
