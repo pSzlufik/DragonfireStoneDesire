@@ -381,6 +381,7 @@ if [ "$(($1 % 2))" -eq 0 ]; then
     xdotool sleep 0.25 click --window $WID 1270 $((320+150*temp)) 1 sleep 0.1
 else
     xdotool sleep 0.25 click --window $WID 650 $((320+150*temp)) 1 sleep 0.1
+fi
 xdotool mousemove --window $WID 1280 350 sleep 0.25 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1130 690 sleep 0.25 click --window $WID 1 sleep 0.1
 xdotool sleep 20
