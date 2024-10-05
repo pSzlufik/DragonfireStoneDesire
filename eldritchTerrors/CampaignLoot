@@ -9,4 +9,4 @@ xdotool mousemove --window $WID 1 1080 sleep 0.5 mousedown --window $WID 1 sleep
 xdotool mousemove_relative 790 -820 sleep 0.5 mouseup --window $WID 1 sleep 0.5
 
 xdotool mousemove --window $WID 1836 610 sleep 0.5 click --window $WID 1 sleep 0.5
-xdotool mousemove --window $WID 157 1004 sleep 0.5 click --window $WID 1
+xdotool mousemove --window $WID 157 1004 sleep 0.5 click --window $WID 1 
