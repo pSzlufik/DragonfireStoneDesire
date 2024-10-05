@@ -15,7 +15,7 @@ WID=$(xdotool getactivewindow)
     IFS=';' read -r fsTree fs1 fs2 <<< "$6"
      
     local switchingServer=$7
-    if [$switchingServer -ne 0]; then
+    if [ $switchingServer -ne 0 ]; then
         local switchingLvl=$8           
         local switchingGuardian=$9   
         IFS=';' read -r switchingAlchemyDB switchingAlchemyDust switchingAlchemyCoins <<< "$10"
