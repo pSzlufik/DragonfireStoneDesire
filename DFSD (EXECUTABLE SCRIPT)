@@ -73,64 +73,78 @@ WID=$(xdotool getactivewindow)
     
     # The variables are now set and can be used as needed.
 
-for i in {1..$reps}
+for (( i=1; i<=reps; i++ ))
 do
     SECONDS=0
     guardian $guardianNo
     mapFinish
     mapStart
+    
     if [ "$lvl" -ge 50 ]; then
         xdotool sleep 0.25
         campaignLoot
         xdotool sleep 0.25
         engi
     fi
+    
     if [ "$lvl" -ge 200 ]; then
         xdotool sleep 0.25
         oracle
+    fi
+    
     if [ "$lvl" -ge 120 ]; then
         xdotool sleep 0.25
         alchemy $alchemyDB $alchemyDust $alchemyCoins
     fi
+    
     if [ "$lvl" -ge 15 ]; then
         tavern
         xdotool sleep 0.25
     fi
+    
     if [ "$lvl" -ge 10 ]; then
         exped
         xdotool sleep 0.25
         lib $fsTree $fs1 $fs2 
     fi
+    
     serverSwap $switchingServer
-
     guardian $switchingGuardian
     mapFinish
     mapStart
+    
     if [ "$switchingLvl" -ge 50 ]; then
         xdotool sleep 0.25
         campaignLoot
         xdotool sleep 0.25
         engi
     fi
+    
     if [ "$switchingLvl" -ge 200 ]; then
         xdotool sleep 0.25
         oracle
+    fi
+    
     if [ "$switchingLvl" -ge 120 ]; then
         xdotool sleep 0.25
         alchemy $switchingAlchemyDB $switchingAlchemyDust $switchingAlchemyCoins
     fi
+    
     if [ "$switchingLvl" -ge 15 ]; then
         tavern
         xdotool sleep 0.25
     fi
+    
     if [ "$switchingLvl" -ge 10 ]; then
         exped
         xdotool sleep 0.25
         lib $switchingFsTree $switchingFs1 $switchingFs2
     fi
+    
     serverSwap $startingServer
-    xdotool 20
+    xdotool 20  # This seems like an incomplete command
 done
+
 echo "$SECONDS"
 
 }
