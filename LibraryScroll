@@ -1,9 +1,0 @@
-xdotool search --name 'Firestone' windowactivate sleep 1
-WID=$(xdotool getactivewindow)
-xdotool sleep 1
-xdotool key --window $WID L sleep 1
-
-	xdotool mousemove --window $WID 1800 630 sleep 0.5 click --window $WID 1 sleep 0.5
-	xdotool mousemove --window $WID 1 1 sleep 0.5
-	xdotool click --window $WID --repeat 120 --delay 1 4 sleep 0.5
-	xdotool click --window $WID --repeat 6 --delay 5 5
