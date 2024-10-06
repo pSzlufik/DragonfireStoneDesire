@@ -1,6 +1,6 @@
 #!/bin/bash
 run () {
-xdotool search --name 'Firestone' windowactivate sleep 0.25
+xdotool search --name 'Firestone' windowactivate sleep 0.15
 WID=$(xdotool getactivewindow)
     local reps=$1           
     local startingServer=$2
@@ -18,34 +18,37 @@ for (( i=1; i<=reps; i++ ))
 do
     SECONDS=0
     guardian $guardianNo
+    xdotool sleep 0.15
     mapFinish
+    xdotool sleep 0.15
     mapStart
+    xdotool sleep 0.15
     
     if [ "$lvl" -ge 50 ]; then
-        xdotool sleep 0.25
+        xdotool sleep 0.15
         campaignLoot
-        xdotool sleep 0.25
+        xdotool sleep 0.15
         engi
     fi
     
     if [ "$lvl" -ge 200 ]; then
-        xdotool sleep 0.25
+        xdotool sleep 0.15
         oracle
     fi
     
     if [ "$lvl" -ge 120 ]; then
-        xdotool sleep 0.25
+        xdotool sleep 0.15
         alchemy $alchemyDB $alchemyDust $alchemyCoins
     fi
     
     if [ "$lvl" -ge 15 ]; then
         tavern
-        xdotool sleep 0.25
+        xdotool sleep 0.15
     fi
     
     if [ "$lvl" -ge 10 ]; then
         exped
-        xdotool sleep 0.25
+        xdotool sleep 0.15
         lib $fsTree $fs1 $fs2 
     fi
     
@@ -55,34 +58,38 @@ do
         IFS=';' read -r switchingAlchemyDB switchingAlchemyDust switchingAlchemyCoins <<< "$10"
         IFS=';' read -r switchingFsTree switchingFs1 switchingFs2 <<< "$11"
     	serverSwap $switchingServer
+        xdotool sleep 0.15
 	guardian $switchingGuardian
+        xdotool sleep 0.15
 	mapFinish
+        xdotool sleep 0.15
 	mapStart
+        xdotool sleep 0.15
 	if [ "$switchingLvl" -ge 50 ]; then
-            xdotool sleep 0.25
+            xdotool sleep 0.15
             campaignLoot
-            xdotool sleep 0.25
+            xdotool sleep 0.15
             engi
         fi
     
         if [ "$switchingLvl" -ge 200 ]; then
-            xdotool sleep 0.25
+            xdotool sleep 0.15
             oracle
         fi
     
         if [ "$switchingLvl" -ge 120 ]; then
-            xdotool sleep 0.25
+            xdotool sleep 0.15
             alchemy $switchingAlchemyDB $switchingAlchemyDust $switchingAlchemyCoins
 	fi
     
 	if [ "$switchingLvl" -ge 15 ]; then
             tavern
-            xdotool sleep 0.25
+            xdotool sleep 0.15
 	fi
     
 	if [ "$switchingLvl" -ge 10 ]; then
             exped
-            xdotool sleep 0.25
+            xdotool sleep 0.15
             lib $switchingFsTree $switchingFs1 $switchingFs2
 	fi
     
@@ -142,8 +149,6 @@ xdotool mousemove --window $WID $guardianX $guardianY sleep 0.15 click --window 
 xdotool mousemove --window $WID 1160 800 sleep 0.15 click --window $WID 1 sleep 0.15
 xdotool sleep 0.25
 
-#enlightment cooming soon™
-
 reset
 }
 
@@ -157,10 +162,10 @@ IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
 temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$3" 16)
 IFS=',' read -r fsCol2 fsRow2 <<< "$temp"
 
-xdotool sleep 0.15 click --window $WID --repeat 120 --delay 1 4  sleep 0.15
-xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "@fsCol1") --delay 1 5 sleep 0.15
+xdotool sleep 0.15 click --window $WID --repeat 120 --delay 1 4 sleep 0.15
+xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "$((fsCol1-1))") --delay 1 5 sleep 0.15
 t=$(max $(($fsCol1-6)) 0)
-xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "@fsRow1") sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "$((fsRow1-1))") sleep 0.15 click --window $WID 1 sleep 0.15
 xdotool mousemove --window $WID 750 790 sleep 0.15 click --window $WID 1 sleep 0.15
 xdotool mousemove --window $WID 20 20 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.15
 
@@ -288,18 +293,18 @@ tavern () {
 
 
 getMatrixElement () {
-    local matrix=("$@")  # Take all arguments as the matrix
-    local row=$1         # First argument is the row index
-    local col=$2         # Second argument is the column index
-    local cols=$3        # Third argument is the number of columns
-    local index=$((row * cols + col))  # Calculate the index
-    echo "${matrix[$index]}"  # Return the element at the calculated index
+    local matrix=("$@")  
+    local row=$1        
+    local col=$2        
+    local cols=$3     
+    local index=$((row * cols + col)) 
+    echo "${matrix[$index]}" 
 }
 
 getSingleRowElement () {
-    local matrix=("$@")  # All arguments are treated as the matrix
-    local col=$1         # First argument is the column index
-    echo "${matrix[$col]}"  # Return the element at the column index
+    local matrix=("$@") 
+    local col=$1         
+    echo "${matrix[$col]}" 
 }
 
                                                               
