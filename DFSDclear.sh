@@ -21,10 +21,6 @@ do
     xdotool sleep 0.1
     guardian "$guardianNo"
     xdotool sleep 0.1
-    mapFinish
-    xdotool sleep 0.1
-    mapStart
-    xdotool sleep 0.1
     
     if [ "$lvl" -ge 50 ]; then
         xdotool sleep 0.1
@@ -58,6 +54,10 @@ do
         	xdotool sleep 0.1
 	fi
     fi
+    xdotool sleep 0.1
+    mapFinish
+    xdotool sleep 0.1
+    mapStart
     xdotool sleep 0.1
     if [ "$switchingServer" -ne 0 ]; then
         switchingLvl=$8           
