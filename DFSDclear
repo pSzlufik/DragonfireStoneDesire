@@ -185,19 +185,19 @@ echo "Node2 in tree index: $fsNode2"
 temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fsNode1" 16)
 echo "Coordinates in the tree: $temp"
 IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
-let fsCol1Index=fsCol1-1
+fsCol1Index=$((fsCol1-1))
 echo "Column1: $fsCol1"
 echo "Column1 index: $fsCol1Index"
-let fsRow1Index=fsRow1-1
+fsRow1Index=$((fsRow1-1))
 echo "Row1: $fsRow1"
 echo "Row1 index: $fsRow1Index"
 temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fsNode2" 16)
 echo "Coordinates in the tree: $temp"
 IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
-let fsCol2Index=fsCol2-1
+fsCol2Index=$((fsCol2-1))
 echo "Column2: $fsCol2"
 echo "Column2 index: $fsCol2Index"
-let fsRow2Index=fsRow2-1
+fsRow2Index=$((fsRow2-1))
 echo "Row2: $fsRow2"
 echo "Row2 index: $fsRow2Index"
 
