@@ -329,14 +329,14 @@ xdotool mousemove --window $WID 10 160 sleep 0.15 click --window $WID 1 sleep 0.
 }
 
 
-max() {
+max () {
     if [ "$1" -gt "$2" ]; then
         echo "$1"
     else
         echo "$2"
     fi
 }
-min() {
+min () {
     if [ "$1" -gt "$2" ]; then
         echo "$2"
     else
