@@ -116,6 +116,8 @@ echo "$SECONDS"
 }
 
 alchemy () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 if [ $(($1+$2+$3)) -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
@@ -132,6 +134,8 @@ reset
 }
 
 campaignLoot () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1836 610 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 157 1004 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool sleep 0.25
@@ -139,6 +143,8 @@ reset
 }
 
 engi () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 	xdotool mousemove --window "$WID" 1860 212 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 1280 830 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 580 539 sleep 0.2 click --window "$WID" 1 sleep 0.1
@@ -148,6 +154,8 @@ reset
 }
 
 exped () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1856 469 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 334 376 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1325 317 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
@@ -156,6 +164,8 @@ reset
 }
 
 guardian () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" g sleep 0.4
 let gindex=$1-1
 temp=$(getSingleRowElement "$gindex" "${guardianPos[@]}")
@@ -169,6 +179,8 @@ reset
 }
 
 lib () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" L sleep 0.4
 xdotool mousemove --window "$WID" 1800 630 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
@@ -215,6 +227,8 @@ reset
 
 
 mapFinish () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" M sleep 0.4
 xdotool mousemove --window "$WID" 1900 1 sleep 0.251 mousedown --window "$WID" 1 sleep 0.251
 xdotool mousemove --window "$WID" 1 1060 sleep 0.251 mouseup --window "$WID" 1 sleep 0.251
@@ -231,6 +245,8 @@ done
 
 
 mapStart () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 p=370
 t=140
 for k in {1..9};
@@ -283,6 +299,8 @@ do
 done
 }
 oracle () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" o sleep 0.4
 xdotool mousemove --window "$WID" 820 430 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1170 880 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1
@@ -294,6 +312,8 @@ reset
 }
 
 serverSwap () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1840 50 sleep 0.2 click --window "$WID" 1
 xdotool mousemove --window "$WID" 1500 620 sleep 0.2 click --window "$WID" 1
 xdotool mousemove --window "$WID" 1300 170 sleep 0.2 click --window "$WID" 1
@@ -318,6 +338,8 @@ reset
 
 
 tavern () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 	xdotool mousemove --window "$WID" 1860 212 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 700 960 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 1720 50 sleep 0.2 click --window "$WID" 1 sleep 0.1
