@@ -319,9 +319,6 @@ declare -a fsTree=(
 declare -a guardianPos=(
     "1050,1000" "1200,1000" "750,100" "900,1000" 
 )
-declare -a serverPos=(
-    "3" "15" "28" "40" "53" "65" "78" "90" "103" "115" "128"
-)
 
 reset () {
 xdotool mousemove --window $WID 1840 50 sleep 0.15 click --window $WID --repeat 4 --delay 200 1
