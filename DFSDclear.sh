@@ -116,6 +116,8 @@ echo "$SECONDS"
 }
 
 alchemy () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 if [ $(($1+$2+$3)) -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
@@ -132,6 +134,8 @@ reset
 }
 
 campaignLoot () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1836 610 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 157 1004 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool sleep 0.25
@@ -139,6 +143,8 @@ reset
 }
 
 engi () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 	xdotool mousemove --window "$WID" 1860 212 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 1280 830 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 580 539 sleep 0.2 click --window "$WID" 1 sleep 0.1
@@ -148,6 +154,8 @@ reset
 }
 
 exped () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1856 469 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 334 376 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1325 317 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
@@ -156,6 +164,8 @@ reset
 }
 
 guardian () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" g sleep 0.4
 let gindex=$1-1
 temp=$(getSingleRowElement "$gindex" "${guardianPos[@]}")
@@ -169,6 +179,8 @@ reset
 }
 
 lib () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" L sleep 0.4
 xdotool mousemove --window "$WID" 1800 630 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
@@ -177,28 +189,37 @@ xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2
 xdotool mousemove --window "$WID" 590 990 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
 fsPattern=$(($1 % 3))
+echo "Input: $1 $2 $3"
 let fsNode1=$2-1
 let fsNode2=$3-1
 temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTree[@]}")
 IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
 fsCol1Index=$((fsCol1-1))
 fsRow1Index=$((fsRow1-1))
+echo "Tree pattern: $fsPattern"
+echo "Upgrade indexes: $fsNode1 $fsNode2"
+echo "First matrix value: $temp"
 temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
+echo "Second matrix value: $temp"
 IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
 fsCol2Index=$((fsCol2-1))
 fsRow2Index=$((fsRow2-1))
+echo "Col/Row for first upagrde: $fsCol1 / $fsRow1"
+echo "Col/Row for second upagrde: $fsCol2 / $fsRow2"
+t1=$(max $(($fsCol1-6)) 0)
+t2=$(max $(($fsCol2-6)) 0)
+echo "Shifting multiplier first: $t1"
+echo "Shifting multiplier second: $t2"
 
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
-t=$(max $(($fsCol1-6)) 0)
-xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20 + $t1 * 460))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
-t=$(max $(($fsCol2-6)) 0)
-xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20 + $t2 * 460))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 reset
@@ -206,6 +227,8 @@ reset
 
 
 mapFinish () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" M sleep 0.4
 xdotool mousemove --window "$WID" 1900 1 sleep 0.251 mousedown --window "$WID" 1 sleep 0.251
 xdotool mousemove --window "$WID" 1 1060 sleep 0.251 mouseup --window "$WID" 1 sleep 0.251
@@ -222,6 +245,8 @@ done
 
 
 mapStart () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 p=370
 t=140
 for k in {1..9};
@@ -274,6 +299,8 @@ do
 done
 }
 oracle () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" o sleep 0.4
 xdotool mousemove --window "$WID" 820 430 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1170 880 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1
@@ -285,6 +312,8 @@ reset
 }
 
 serverSwap () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 xdotool mousemove --window "$WID" 1840 50 sleep 0.2 click --window "$WID" 1
 xdotool mousemove --window "$WID" 1500 620 sleep 0.2 click --window "$WID" 1
 xdotool mousemove --window "$WID" 1300 170 sleep 0.2 click --window "$WID" 1
@@ -309,6 +338,8 @@ reset
 
 
 tavern () {
+xdotool search --name 'Firestone' windowactivate sleep 0.1
+WID=$(xdotool getactivewindow)
 	xdotool mousemove --window "$WID" 1860 212 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 700 960 sleep 0.2 click --window "$WID" 1 sleep 0.1
 	xdotool mousemove --window "$WID" 1720 50 sleep 0.2 click --window "$WID" 1 sleep 0.1
@@ -344,7 +375,7 @@ declare -a fsScrollsPerColumn=(
 )
 
 declare -a fsTree=(
-"1;1" "1;3" "1;5" "2;2" "2;4" "3;3" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5" "1;3" "1;4" "2;1" "2;3" "2;5" "3;2" "3;4" "4;3" "5;2" "5;4" "6;3" "7;1" "7;3" "7;5" "8;2" "8;4" "1;3" "2;2" "2;4" "3;1" "3;3" "3;5" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5"
+"1;3" "1;4" "2;1" "2;3" "2;5" "3;2" "3;4" "4;3" "5;2" "5;4" "6;3" "7;1" "7;3" "7;5" "8;2" "8;4" "1;3" "2;2" "2;4" "3;1" "3;3" "3;5" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5" "1;1" "1;3" "1;5" "2;2" "2;4" "3;3" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5"
 )
 
 declare -a guardianPos=(
