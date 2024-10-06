@@ -17,6 +17,7 @@ WID=$(xdotool getactivewindow)
 for (( i=1; i<=reps; i++ ))
 do
     SECONDS=0
+    reset
     xdotool sleep 0.1
     guardian "$guardianNo"
     xdotool sleep 0.1
