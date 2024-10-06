@@ -156,7 +156,7 @@ reset
 guardian () {
 xdotool key --window $WID g sleep 0.4
 
-local temp=$(getSingleRowElement "${guardianPos[@]}" "$(($1-1))")
+local temp=$(getSingleRowElement "${guardianPos[@]}" "$1")
 IFS=',' read -r guardianX guardianY <<< "$temp"
 
 xdotool mousemove --window $WID $guardianX $guardianY sleep 0.2 click --window $WID 1 sleep 0.1
@@ -175,13 +175,18 @@ xdotool mousemove --window $WID 1 1 sleep 0.2 click --window $WID --repeat 2 --d
 xdotool mousemove --window $WID 590 990 sleep 0.2 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1 1 sleep 0.2 click --window $WID --repeat 2 --delay 0.05 1
 fsPattern=$(($1 % 3))
+echo "Tree pattern index: $fsPattern"
 local temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$(($2-1))" 16)
-echo "@temp"
+echo "$temp"
 IFS=',' read -r fsCol1 fsRow1 <<< "$temp"
 let fsCol1Index=$((fsCol1-1))
+echo "Column1: $fsCol1"
+echo "Column1 index: $fsCol1Index"
 let fsRow1Index=$((fsRow1-1))
+echo "Row1: $fsRow1"
+echo "Row1 index: $fsRow1Index"
 temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$(($3-1))" 16)
-echo "@temp"
+echo "$temp"
 IFS=',' read -r fsCol2 fsRow2 <<< "$temp"
 let fsCol2Index=$((fsCol2-1))
 let fsRow2Index=$((fsRow2-1))
@@ -190,7 +195,7 @@ xdotool sleep 0.2 click --window $WID --repeat 120 --delay 1 4 sleep 0.1
 xdotool sleep 0.2 click --window $WID --repeat "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol1Index")" --delay 1 5 sleep 0.1
 echo "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol1Index")"
 t=$(max $(($fsCol1-6)) 0)
-echo "@t"
+echo "$t"
 xdotool mousemove --window $WID "$((20+t*460))" "$(getSingleRowElement "${fsRows[@]}" "$fsRow1Index")" sleep 0.2 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 750 790 sleep 0.2 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 20 20 sleep 0.2 click --window $WID --repeat 2 --delay 250 1 sleep 0.1
@@ -199,7 +204,7 @@ xdotool sleep 0.2 click --window $WID --repeat 90 --delay 1 4 sleep 0.1
 xdotool sleep 0.2 click --window $WID --repeat "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol2Index")" --delay 1 5 sleep 0.1
 echo "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol2Index")"
 t=$(max $(($fsCol2-6)) 0)
-echo "@t"
+echo "$t"
 xdotool mousemove --window $WID "$((20+t*460))" "$(getSingleRowElement "${fsRows[@]}" "$fsRow2Index")" sleep 0.2 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 750 790 sleep 0.2 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 20 20 sleep 0.2 click --window $WID --repeat 2 --delay 250 1 sleep 0.1
