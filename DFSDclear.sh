@@ -158,7 +158,7 @@ reset
 guardian () {
 xdotool key --window "$WID" g sleep 0.4
 let gindex=$1-1
-temp=$(getSingleRowElement "$1" "${guardianPos[@]}")
+temp=$(getSingleRowElement "$gindex" "${guardianPos[@]}")
 IFS=';' read -r guardianX guardianY <<< "$temp"
 
 xdotool mousemove --window "$WID" "$guardianX" "$guardianY" sleep 0.2 click --window "$WID" 1 sleep 0.1
