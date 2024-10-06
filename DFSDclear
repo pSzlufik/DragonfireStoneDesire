@@ -53,8 +53,10 @@ do
     if [ "$lvl" -ge 10 ]; then
         exped
         xdotool sleep 0.1
-        lib "$fsTree" "$fs1" "$fs2"
-        xdotool sleep 0.1
+	if [ "$fsTree" -ne 0 ]; then
+        	lib "$fsTree" "$fs1" "$fs2"
+        	xdotool sleep 0.1
+	fi
     fi
     xdotool sleep 0.1
     if [ "$switchingServer" -ne 0 ]; then
@@ -156,7 +158,7 @@ reset
 guardian () {
 xdotool key --window "$WID" g sleep 0.4
 let gindex=$1-1
-temp=$(getSingleRowElement "${guardianPos[@]}" "$1")
+temp=$(getSingleRowElement "$1" "${guardianPos[@]}")
 IFS=';' read -r guardianX guardianY <<< "$temp"
 echo "Guardian Index: $1"
 echo "Guardian Position: $guardianX $guardianY"
@@ -182,7 +184,7 @@ let fsNode2=$3-1
 echo "Tree pattern index: $fsPattern"
 echo "Node1 in tree index: $fsNode1"
 echo "Node2 in tree index: $fsNode2"
-temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fsNode1" 16)
+temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTree[@]}")
 echo "Coordinates in the tree: $temp"
 IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
 fsCol1Index=$((fsCol1-1))
@@ -191,7 +193,7 @@ echo "Column1 index: $fsCol1Index"
 fsRow1Index=$((fsRow1-1))
 echo "Row1: $fsRow1"
 echo "Row1 index: $fsRow1Index"
-temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$fsNode2" 16)
+temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
 echo "Coordinates in the tree: $temp"
 IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
 fsCol2Index=$((fsCol2-1))
@@ -202,22 +204,22 @@ echo "Row2: $fsRow2"
 echo "Row2 index: $fsRow2Index"
 
 xdotool sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
-xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol1Index")" --delay 1 5 sleep 0.1
-echo "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol1Index")"
+xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
+echo "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")"
 t=$(max $(($fsCol1-6)) 0)
 echo "Parameter: $t"
 echo "Shift: $((20+t*460))"
-xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "${fsRows[@]}" "$fsRow1Index")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 
 xdotool sleep 0.2 click --window "$WID" --repeat 90 --delay 1 4 sleep 0.1
-xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol2Index")" --delay 1 5 sleep 0.1
-echo "$(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol2Index")"
+xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
+echo "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")"
 t=$(max $(($fsCol2-6)) 0)
 echo "Parameter: $t"
 echo "Shift: $((20+t*480))"
-xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "${fsRows[@]}" "$fsRow2Index")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 reset
@@ -338,18 +340,20 @@ tavern () {
 
 
 getMatrixElement () {
-    local matrix=("$@")  
-    local row=$1        
-    local col=$2        
-    local cols=$3     
-    local index=$((row * cols + col)) 
-    echo "${matrix[$index]}" 
+    local row=$1        # Expecting the first argument to be row index
+    local col=$2        # Expecting the second argument to be column index
+    local cols=$3       # Expecting the third argument to be number of columns
+    shift 3             # Shift off the first three parameters to get the matrix
+    local matrix=("$@") # Remaining arguments are the matrix elements
+    local index=$((row * cols + col))
+    echo "${matrix[$index]}"
 }
 
 getSingleRowElement () {
-    local matrix=("$@") 
-    local col=$1         
-    echo "${matrix[$col]}" 
+    local col=$1            # Expecting the first argument to be column index
+    shift                    # Shift to drop the column index from parameters
+    local matrix=("$@")     # The remaining arguments are the matrix elements
+    echo "${matrix[$col]}"  # Output the element at the specified column index
 }
 
                                                               
