@@ -1,44 +1,47 @@
 #!/bin/bash
 run () {
-xdotool search --name 'Firestone' windowactivate sleep 0.15
+xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
-    local reps=$1           
-    local startingServer=$2
-    local lvl=$3           
-    local guardianNo=$4   
+    reps=$1           
+    startingServer=$2
+    lvl=$3           
+    guardianNo=$4   
     
     IFS=';' read -r alchemyDB alchemyDust alchemyCoins <<< "$5"
 
     IFS=';' read -r fsTree fs1 fs2 <<< "$6"
      
-    local switchingServer=$7
+    switchingServer=$7
     
 
 for (( i=1; i<=reps; i++ ))
 do
     SECONDS=0
-    guardian $guardianNo
-    xdotool sleep 0.15
+    xdotool sleep 0.1
+    guardian "$guardianNo"
+    xdotool sleep 0.1
     mapFinish
-    xdotool sleep 0.15
+    xdotool sleep 0.1
     mapStart
-    xdotool sleep 0.15
+    xdotool sleep 0.1
     
     if [ "$lvl" -ge 50 ]; then
-        xdotool sleep 0.15
+        xdotool sleep 0.1
         campaignLoot
-        xdotool sleep 0.15
+        xdotool sleep 0.1
         engi
     fi
     
     if [ "$lvl" -ge 200 ]; then
-        xdotool sleep 0.15
+        xdotool sleep 0.1
         oracle
+        xdotool sleep 0.1
     fi
     
     if [ "$lvl" -ge 120 ]; then
-        xdotool sleep 0.15
-        alchemy $alchemyDB $alchemyDust $alchemyCoins
+        xdotool sleep 0.1
+        alchemy "$alchemyDB" "$alchemyDust" "$alchemyCoins"
+        xdotool sleep 0.1
     fi
     
     if [ "$lvl" -ge 15 ]; then
@@ -49,92 +52,100 @@ do
     if [ "$lvl" -ge 10 ]; then
         exped
         xdotool sleep 0.15
-        lib $fsTree $fs1 $fs2 
+        lib "$fsTree" "$fs1" "$fs2"
+        xdotool sleep 0.1
     fi
-    
-    if [$switchingServer -ne 0]; then
-        local switchingLvl=$8           
-        local switchingGuardian=$9   
+    xdotool sleep 0.1
+    if ["$switchingServer" -ne 0]; then
+        switchingLvl=$8           
+        switchingGuardian=$9   
         IFS=';' read -r switchingAlchemyDB switchingAlchemyDust switchingAlchemyCoins <<< "$10"
         IFS=';' read -r switchingFsTree switchingFs1 switchingFs2 <<< "$11"
-    	serverSwap $switchingServer
-        xdotool sleep 0.15
-	guardian $switchingGuardian
-        xdotool sleep 0.15
+    	serverSwap "$switchingServer"
+
+        xdotool sleep 0.1
+	guardian "$switchingGuardian"
+        xdotool sleep 0.1
 	mapFinish
-        xdotool sleep 0.15
+        xdotool sleep 0.1
 	mapStart
-        xdotool sleep 0.15
+        xdotool sleep 0.1
 	if [ "$switchingLvl" -ge 50 ]; then
-            xdotool sleep 0.15
+	    xdotool sleep 0.1
             campaignLoot
-            xdotool sleep 0.15
+            xdotool sleep 0.1
             engi
+            xdotool sleep 0.1
         fi
     
         if [ "$switchingLvl" -ge 200 ]; then
-            xdotool sleep 0.15
+            xdotool sleep 0.1
             oracle
+            xdotool sleep 0.1
         fi
     
         if [ "$switchingLvl" -ge 120 ]; then
-            xdotool sleep 0.15
-            alchemy $switchingAlchemyDB $switchingAlchemyDust $switchingAlchemyCoins
+            xdotool sleep 0.1
+            alchemy "$switchingAlchemyDB" "$switchingAlchemyDust" "$switchingAlchemyCoins"
+            xdotool sleep 0.1
 	fi
     
 	if [ "$switchingLvl" -ge 15 ]; then
+            xdotool sleep 0.1
             tavern
-            xdotool sleep 0.15
+            xdotool sleep 0.1
 	fi
     
 	if [ "$switchingLvl" -ge 10 ]; then
+            xdotool sleep 0.1
             exped
-            xdotool sleep 0.15
-            lib $switchingFsTree $switchingFs1 $switchingFs2
+            xdotool sleep 0.1
+            lib "$switchingFsTree" "$switchingFs1" "$switchingFs2"
+            xdotool sleep 0.1
 	fi
     
-        serverSwap $startingServer
+        serverSwap "$startingServer"
     fi
 done
 
 echo "$SECONDS"
 
 }
+
 alchemy () {
 xdotool key --window $WID a sleep 0.4
 if [ "$1" -eq 1 ]; then
-  xdotool mousemove --window $WID 950 800 sleep 0.15 click --window $WID 1 sleep 0.15
+  xdotool mousemove --window $WID 950 800 sleep 0.15 click --window $WID 1 sleep 0.1
 fi
 if [ "$2" -eq 1 ]; then
-  xdotool mousemove --window $WID 1300 800 sleep 0.15 click --window $WID 1 sleep 0.15
+  xdotool mousemove --window $WID 1300 800 sleep 0.15 click --window $WID 1 sleep 0.1
 fi
 if [ "$3" -eq 1 ]; then
-  xdotool mousemove --window $WID 1650 800 sleep 0.15 click --window $WID 1 sleep 0.15
+  xdotool mousemove --window $WID 1650 800 sleep 0.15 click --window $WID 1 sleep 0.1
 fi
-
 reset
 }
 
 campaignLoot () {
-xdotool mousemove --window $WID 1836 610 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 157 1004 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 1836 610 sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 157 1004 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool sleep 0.25
 reset
 }
 
 engi () {
-	xdotool mousemove --window $WID 1860 212 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 1280 830 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 580 539 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 1625 720 sleep 0.15 click --window $WID 1 sleep 0.15
+	xdotool mousemove --window $WID 1860 212 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 1280 830 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 580 539 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 1625 720 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool sleep 0.25
 reset
 }
 
 exped () {
-xdotool mousemove --window $WID 1856 469 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 334 376 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 1325 317 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.15
+xdotool mousemove --window $WID 1856 469 sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 334 376 sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 1325 317 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.1
 xdotool sleep 0.25
 reset
 }
@@ -145,8 +156,8 @@ xdotool key --window $WID g sleep 0.4
 local temp=$(getSingleRowElement "${guardianPos[@]}" "@1")
 IFS=',' read -r guardianX guardianY <<< "$temp"
 
-xdotool mousemove --window $WID $guardianX $guardianY sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 1160 800 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID $guardianX $guardianY sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 1160 800 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool sleep 0.25
 
 reset
@@ -154,33 +165,35 @@ reset
 
 lib () {
 xdotool key --window $WID L sleep 0.4
-xdotool mousemove --window $WID 1800 630 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 1800 630 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
-xdotool mousemove --window $WID 1270 990 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 1270 990 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
-xdotool mousemove --window $WID 590 990 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 590 990 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
 fsPattern=$(($1 % 3))
 local temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$(($2-1))" 16)
-IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
+IFS=',' read -r fsCol1 fsRow1 <<< "$temp"
+let fsCol1Index=$((fsCol1-1))
+let fsRow1Index=$((fsRow1-1))
 temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$(($3-1))" 16)
 IFS=',' read -r fsCol2 fsRow2 <<< "$temp"
+let fsCol2Index=$((fsCol2-1))
+let fsRow2Index=$((fsRow2-1))
 
 xdotool sleep 0.15 click --window $WID --repeat 120 --delay 1 4 sleep 0.15
-xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "$((fsCol1-1))") --delay 1 5 sleep 0.15
+xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol1Index") --delay 1 5 sleep 0.1
 t=$(max $(($fsCol1-6)) 0)
-xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "$((fsRow1-1))") sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 750 790 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 20 20 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.15
+xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "$fsRow1Index") sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 750 790 sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 20 20 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.1
 
 xdotool sleep 0.15 click --window $WID --repeat 90 --delay 1 4 sleep 0.15
-xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "$((fsCol2-1))") --delay 1 5 sleep 0.15
+xdotool sleep 0.15 click --window $WID --repeat $(getSingleRowElement "${fsScrollsPerColumn[@]}" "$fsCol2Index") --delay 1 5 sleep 0.1
 t=$(max $(($fsCol2-6)) 0)
-xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "$((fsRow2-1))") sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 750 790 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 20 20 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.15
-xdotool sleep 0.15
-
+xdotool mousemove --window $WID $((20+t*460)) $(getSingleRowElement "${fsRows[@]}" "$fsRow2Index") sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 750 790 sleep 0.15 click --window $WID 1 sleep 0.1
+xdotool mousemove --window $WID 20 20 sleep 0.15 click --window $WID --repeat 2 --delay 250 1 sleep 0.1
 reset
 }
 
@@ -255,7 +268,7 @@ done
 }
 oracle () {
 xdotool key --window $WID o sleep 0.4
-xdotool mousemove --window $WID 820 430 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 820 430 sleep 0.15 click --window $WID 1 sleep 0.1
 xdotool mousemove --window $WID 1170 880 sleep 0.15 click --window $WID --repeat 2 --delay 250 1
 xdotool mousemove --window $WID 1620 510 sleep 0.15 click --window $WID --repeat 2 --delay 250 1
 xdotool mousemove --window $WID 1170 510 sleep 0.15 click --window $WID --repeat 2 --delay 250 1
@@ -263,6 +276,7 @@ xdotool mousemove --window $WID 1620 880 sleep 0.15 click --window $WID --repeat
 xdotool sleep 0.25
 reset
 }
+
 serverSwap () {
 xdotool mousemove --window $WID 1840 50 sleep 0.15 click --window $WID 1
 xdotool mousemove --window $WID 1500 620 sleep 0.15 click --window $WID 1
@@ -287,10 +301,10 @@ reset
 
 
 tavern () {
-	xdotool mousemove --window $WID 1860 212 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 700 960 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 1720 50 sleep 0.15 click --window $WID 1 sleep 0.15
-	xdotool mousemove --window $WID 500 570 sleep 0.15 click --window $WID 1 sleep 0.15
+	xdotool mousemove --window $WID 1860 212 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 700 960 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 1720 50 sleep 0.15 click --window $WID 1 sleep 0.1
+	xdotool mousemove --window $WID 500 570 sleep 0.15 click --window $WID 1 sleep 0.1
     xdotool sleep 0.25
     reset
 }
@@ -331,7 +345,7 @@ declare -a guardianPos=(
 
 reset () {
 xdotool mousemove --window $WID 1840 50 sleep 0.15 click --window $WID --repeat 4 --delay 200 1
-xdotool mousemove --window $WID 10 160 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 10 160 sleep 0.15 click --window $WID 1 sleep 0.1
 }
 
 
