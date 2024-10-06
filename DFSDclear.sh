@@ -136,6 +136,7 @@ reset
 campaignLoot () {
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
+xdotool key --window "$WID" m sleep 0.4
 xdotool mousemove --window "$WID" 1836 610 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 157 1004 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool sleep 0.25
@@ -288,6 +289,7 @@ do
     f=p
     let p=f+96
 done
+reset
 }
 oracle () {
 xdotool search --name 'Firestone' windowactivate sleep 0.1
