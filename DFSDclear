@@ -155,7 +155,11 @@ reset
 lib () {
 xdotool key --window $WID L sleep 0.4
 xdotool mousemove --window $WID 1800 630 sleep 0.15 click --window $WID 1 sleep 0.15
-xdotool mousemove --window $WID 1 1 sleep 0.15
+xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
+xdotool mousemove --window $WID 1270 990 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
+xdotool mousemove --window $WID 590 990 sleep 0.15 click --window $WID 1 sleep 0.15
+xdotool mousemove --window $WID 1 1 sleep 0.15 click --window $WID --repeat 2 --delay 0.05 1
 fsPattern=$(($1 % 3))
 local temp=$(getMatrixElement "${fsTree[@]}" "$fsPattern" "$2" 16)
 IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
