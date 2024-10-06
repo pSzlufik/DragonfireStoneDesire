@@ -188,15 +188,15 @@ IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
 fsCol2Index=$((fsCol2-1))
 fsRow2Index=$((fsRow2-1))
 
-xdotool sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
-xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
+xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
+xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
 t=$(max $(($fsCol1-6)) 0)
 xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 
-xdotool sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
-xdotool sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
+xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
+xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
 t=$(max $(($fsCol2-6)) 0)
 xdotool mousemove --window "$WID" "$((20+t*460))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
