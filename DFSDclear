@@ -114,15 +114,17 @@ echo "$SECONDS"
 }
 
 alchemy () {
-xdotool key --window $WID a sleep 0.4
-if [ "$1" -eq 1 ]; then
-  xdotool mousemove --window $WID 950 800 sleep 0.2 click --window $WID 1 sleep 0.1
-fi
-if [ "$2" -eq 1 ]; then
-  xdotool mousemove --window $WID 1300 800 sleep 0.2 click --window $WID 1 sleep 0.1
-fi
-if [ "$3" -eq 1 ]; then
-  xdotool mousemove --window $WID 1650 800 sleep 0.2 click --window $WID 1 sleep 0.1
+if [ $(($1+$2+$3)) -ne 0 ]; then
+	xdotool key --window $WID a sleep 0.4
+	if [ "$1" -eq 1 ]; then
+		xdotool mousemove --window $WID 950 800 sleep 0.2 click --window $WID 1 sleep 0.1
+	fi
+	if [ "$2" -eq 1 ]; then
+		xdotool mousemove --window $WID 1300 800 sleep 0.2 click --window $WID 1 sleep 0.1
+	fi
+	if [ "$3" -eq 1 ]; then
+		xdotool mousemove --window $WID 1650 800 sleep 0.2 click --window $WID 1 sleep 0.1
+	fi
 fi
 reset
 }
