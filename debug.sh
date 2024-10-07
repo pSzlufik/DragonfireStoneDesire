@@ -175,15 +175,15 @@ if [ $((db+dust+ec)) -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
  		     echo "Conducting DB experiment" #debug
-		xdotool mousemove --window "$WID" 950 800 sleep 0.2 click --window "$WID" 1 sleep 0.1
+		xdotool mousemove --window "$WID" 950 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 	if [ "$2" -eq 1 ]; then
  		     echo "Conducting dust experiment" #debug
-		xdotool mousemove --window "$WID" 1300 800 sleep 0.2 click --window "$WID" 1 sleep 0.1
+		xdotool mousemove --window "$WID" 1300 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 	if [ "$3" -eq 1 ]; then
  		     echo "Conducting ec experiment" #debug
-		xdotool mousemove --window "$WID" 1650 800 sleep 0.2 click --window "$WID" 1 sleep 0.1
+		xdotool mousemove --window "$WID" 1650 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 else
 	     echo "No alchemy experiments conducted" #debug
@@ -307,7 +307,7 @@ lib () {
 		xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.1
 	elif [[ "$fsCol2" -ge 6 ]]; then
  		     echo "Late parts of the fs tree for the second upgrade!" #debug
-		fsCol2Index=$((fsCol1-6))
+		fsCol2Index=$((fsCol2-6))
    		node2X=$(getSingleRowElement "$fsCol2Index" "${fsColsRight[@]}")
 		     echo "X coordinate of the second node: $node2X" #debug
 		xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 5 sleep 0.1
