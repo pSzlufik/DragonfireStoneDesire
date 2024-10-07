@@ -88,7 +88,7 @@ do
 
 		IFS=';' read -r swAlchemyDB swAlchemyDust swAlchemyCoins <<< "${10}"
 		     echo "DB: $swAlchemyDB" ", dust: $swAlchemyDust"  ", coins: $swAlchemyCoins" #debug
-		IFS=';' read -r swfsTree swfs1 swfs2 <<< "${11}"
+		IFS=';' read -r swFsTree swFs1 swFs2 <<< "${11}"
 		     echo "Tree: $swFsTree" ", 1st node: $swFs1" ", 2nd node: $swFs2" #debug
 		     echo "swServer: $SECONDS" #debug
 		serverSwap "$swServer"
