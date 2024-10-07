@@ -280,6 +280,7 @@ lib () {
 		xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.1
 	elif [[ "$fsCol1" -ge 6 ]]; then
  		     echo "Late parts of the fs tree for the first upgrade!" #debug
+		fsCol1Index=$((fsCol1-6))
    		node1X=$(getSingleRowElement "$fsCol1Index" "${fsColsRight[@]}")
 		     echo "X coordinate of the first node: $node1X" #debug
 		xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 5 sleep 0.1
@@ -306,6 +307,7 @@ lib () {
 		xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.1
 	elif [[ "$fsCol2" -ge 6 ]]; then
  		     echo "Late parts of the fs tree for the second upgrade!" #debug
+		fsCol2Index=$((fsCol1-6))
    		node2X=$(getSingleRowElement "$fsCol2Index" "${fsColsRight[@]}")
 		     echo "X coordinate of the second node: $node2X" #debug
 		xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 5 sleep 0.1
