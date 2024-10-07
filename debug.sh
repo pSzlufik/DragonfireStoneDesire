@@ -480,7 +480,7 @@ getSingleRowElement () {
 															  
 declare -a fsRows=(
 	"260" "400" "520" "640" "780"
- 
+ )
 declare -a fsColsLeft=(
 	"220" "700" "1200" "1690"
 )									  
