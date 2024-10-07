@@ -4,7 +4,7 @@ SECONDS=0
      echo "run: $SECONDS" #debug
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
-     echo "window: $WID ($((xdotool search --name $WID))"
+     echo "window: $WID"
 reps=$1		   
 startingServer=$2
 lvl=$3		   
