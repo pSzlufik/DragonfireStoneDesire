@@ -447,7 +447,6 @@ elif [ "$1" -eq 6 ]; then
 fi
 	xdotool mousemove 1110 720 sleep 0.2 click --window "$WID" 1
 xdotool sleep 15
-reset
 }
 
 
