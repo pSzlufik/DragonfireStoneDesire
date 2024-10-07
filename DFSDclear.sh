@@ -62,8 +62,11 @@ do
     if [ "$switchingServer" -ne 0 ]; then
         switchingLvl=$8           
         switchingGuardian=$9   
+
         IFS=';' read -r switchingAlchemyDB switchingAlchemyDust switchingAlchemyCoins <<< "$10"
+
         IFS=';' read -r switchingFsTree switchingFs1 switchingFs2 <<< "$11"
+
     	serverSwap "$switchingServer"
 
         xdotool sleep 0.1
@@ -106,7 +109,7 @@ do
             lib "$switchingFsTree" "$switchingFs1" "$switchingFs2"
             xdotool sleep 0.1
 	fi
-    
+        xdotool sleep 30
         serverSwap "$startingServer"
     fi
 done
@@ -118,7 +121,10 @@ echo "$SECONDS"
 alchemy () {
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
-if [ $(($1+$2+$3)) -ne 0 ]; then
+a=$1
+b=$2
+c=$3
+if [ $((a+b+c)) -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
 		xdotool mousemove --window "$WID" 950 800 sleep 0.2 click --window "$WID" 1 sleep 0.1
@@ -185,6 +191,8 @@ WID=$(xdotool getactivewindow)
 xdotool key --window "$WID" L sleep 0.4
 xdotool mousemove --window "$WID" 1800 630 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
+xdotool mousemove --window "$WID" 1130 80 sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
 xdotool mousemove --window "$WID" 1270 990 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
 xdotool mousemove --window "$WID" 590 990 sleep 0.2 click --window "$WID" 1 sleep 0.1
@@ -200,18 +208,18 @@ temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
 IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
 fsCol2Index=$((fsCol2-1))
 fsRow2Index=$((fsRow2-1))
-t1=$(max $(($fsCol1-6)) 0)
-t2=$(max $(($fsCol2-6)) 0)
+t=$(max $(($fsCol1-6)) 0)
+v=$(max $(($fsCol2-6)) 0)
 
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
-xdotool mousemove --window "$WID" "$((20 + $t1 * 460))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20 + t * 480))" "$(getSingleRowElement "$fsRow1Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol2Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
-xdotool mousemove --window "$WID" "$((20 + $t2 * 460))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
+xdotool mousemove --window "$WID" "$((20 + v * 480))" "$(getSingleRowElement "$fsRow2Index" "${fsRows[@]}")" sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 750 790 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 20 20 sleep 0.2 click --window "$WID" --repeat 2 --delay 250 1 sleep 0.1
 reset
