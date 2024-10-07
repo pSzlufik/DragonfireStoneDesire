@@ -86,9 +86,9 @@ do
 		swLvl=$8		   
 		swGuardian=$9   
 
-		IFS=';' read -r swAlchemyDB swAlchemyDust swAlchemyCoins <<< "$10"
+		IFS=';' read -r swAlchemyDB swAlchemyDust swAlchemyCoins <<< "${10}"
 		     echo "DB: $swAlchemyDB" ", dust: $swAlchemyDust"  ", coins: $swAlchemyCoins" #debug
-		IFS=';' read -r fsTree fs1 fs2 <<< "$11"
+		IFS=';' read -r fsTree fs1 fs2 <<< "${11}"
 		     echo "Tree: $swFsTree" ", 1st node: $swFs1" ", 2nd node: $swFs2" #debug
 		     echo "swServer: $SECONDS" #debug
 		serverSwap "$swServer"
