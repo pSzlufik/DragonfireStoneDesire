@@ -237,7 +237,6 @@ xdotool sleep 0.25
 
 reset
 }
-
 lib () {
 	xdotool search --name 'Firestone' windowactivate sleep 0.1
 	WID=$(xdotool getactivewindow)
