@@ -185,7 +185,7 @@ if [ $((db+dust+ec)) -ne 0 ]; then
  		  #  echo "Conducting ec experiment" #debug
 		xdotool mousemove --window "$WID" 1650 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
-else
+#else
 	  #  echo "No alchemy experiments conducted" #debug
 fi
 
