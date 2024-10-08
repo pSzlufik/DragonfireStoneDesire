@@ -177,7 +177,6 @@ xdotool sleep 0.25
 
 reset
 }
-
 lib () {
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
@@ -189,27 +188,49 @@ xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2
 xdotool mousemove --window "$WID" 590 990 sleep 0.2 click --window "$WID" 1 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 2 --delay 0.05 1
 fsPattern=$(($1 % 3))
+sleep 0.01
 echo "Input: $1 $2 $3"
-let fsNode1=$2-1
-let fsNode2=$3-1
-temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTree[@]}")
-IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
-fsCol1Index=$((fsCol1-1))
-fsRow1Index=$((fsRow1-1))
+sleep 0.01
 echo "Tree pattern: $fsPattern"
+sleep 0.01
+let fsNode1=$2-1
+sleep 0.01
+let fsNode2=$3-1
+sleep 0.01
 echo "Upgrade indexes: $fsNode1 $fsNode2"
+sleep 0.01
+temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTree[@]}")
+sleep 0.01
 echo "First matrix value: $temp"
-temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
-echo "Second matrix value: $temp"
-IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
-fsCol2Index=$((fsCol2-1))
-fsRow2Index=$((fsRow2-1))
+sleep 0.01
+IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
+sleep 0.01
+fsCol1Index=$((fsCol1-1))
+sleep 0.01
+fsRow1Index=$((fsRow1-1))
+sleep 0.01
 echo "Col/Row for first upagrde: $fsCol1 / $fsRow1"
+sleep 0.01
+temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
+sleep 0.01
+echo "Second matrix value: $temp"
+sleep 0.01
+IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
+sleep 0.01
+fsCol2Index=$((fsCol2-1))
+sleep 0.01
+fsRow2Index=$((fsRow2-1))
+sleep 0.01
 echo "Col/Row for second upagrde: $fsCol2 / $fsRow2"
+sleep 0.01
 t1=$(max $(($fsCol1-6)) 0)
+sleep 0.01
 t2=$(max $(($fsCol2-6)) 0)
+sleep 0.01
 echo "Shifting multiplier first: $t1"
+sleep 0.01
 echo "Shifting multiplier second: $t2"
+sleep 0.01
 
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.1
 xdotool mousemove --window "$WID" 1 1 sleep 0.2 click --window "$WID" --repeat "$(getSingleRowElement "$fsCol1Index" "${fsScrollsPerColumn[@]}")" --delay 1 5 sleep 0.1
