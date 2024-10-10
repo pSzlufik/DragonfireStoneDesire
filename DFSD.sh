@@ -5,19 +5,21 @@ SECONDS=0
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
   #  echo "window: $WID"
-reps=$1		   
+reps=$1
+  #  echo "Running loop for: $reps"
 startingServer=$2
-lvl=$3		   
-guardianNo=$4   
+  #  echo "Starting on server: $startingServer"
+lvl=$3
+  #  echo "with lvl: $lvl"
+guardianNo=$4
+  #  echo "training guardian: $guardianNo"
 swServer=$7
-	
+  #  echo "then swapping to: $swServer"
 IFS=';' read -r alchemyDB alchemyDust alchemyCoins <<< "$5"
   #  echo "DB: $alchemyDB" ", dust: $alchemyDust"  ", coins: $alchemyCoins" #debug
 IFS=';' read -r fsTree fs1 fs2 <<< "$6"
   #  echo "Tree: $fsTree" ", 1st node: $fs1" ", 2nd node: $fs2" #debug
-	 
-	
-
+  
 for (( i=1; i<=reps; i++ ))
 do
 	reset
@@ -26,7 +28,6 @@ do
 	guardian "$guardianNo"
 	  #  echo "Guardian finished: $SECONDS" #debug
 	xdotool sleep 0.1
-	
 	if [ "$lvl" -ge 10 ]; then
 		  #  echo "exped: $SECONDS" #debug
 		exped
@@ -54,9 +55,9 @@ do
 				  #  echo "Engi collected: $SECONDS" #debug
 				if [ "$lvl" -ge 120 ]; then
 					xdotool sleep 0.1
-					  #  echo "Alchemy: $SECONDS" #debug
+					    echo "Alchemy: $SECONDS" #debug
 					alchemy "$alchemyDB" "$alchemyDust" "$alchemyCoins"
-					  #  echo "Alchemy finished: $SECONDS" #debug
+					    echo "Alchemy finished: $SECONDS" #debug
 					xdotool sleep 0.1
 					if [ "$lvl" -ge 200 ]; then
 						xdotool sleep 0.1
@@ -67,7 +68,6 @@ do
 					fi
 				fi
 			fi
-	
 		fi
 	fi
 	
@@ -85,7 +85,7 @@ do
 		swGuardian=$9   
 
 		IFS=';' read -r swAlchemyDB swAlchemyDust swAlchemyCoins <<< "${10}"
-		  #  echo "DB: $swAlchemyDB" ", dust: $swAlchemyDust"  ", coins: $swAlchemyCoins" #debug
+		    echo "DB: $swAlchemyDB" ", dust: $swAlchemyDust"  ", coins: $swAlchemyCoins" #debug
 		IFS=';' read -r swFsTree swFs1 swFs2 <<< "${11}"
 		  #  echo "Tree: $swFsTree" ", 1st node: $swFs1" ", 2nd node: $swFs2" #debug
 		  #  echo "swServer: $SECONDS" #debug
@@ -126,9 +126,9 @@ do
 					  #  echo "swEngi collected: $SECONDS" #debug
 					if [ "$swLvl" -ge 120 ]; then
 						xdotool sleep 0.1
-						  #  echo "swAlchemy: $SECONDS" #debug
+						    echo "swAlchemy: $SECONDS" #debug
 						alchemy "$swAlchemyDB" "$swAlchemyDust" "$swAlchemyCoins"
-						  #  echo "swAlchemy finished: $SECONDS" #debug
+						    echo "swAlchemy finished: $SECONDS" #debug
 						xdotool sleep 0.1
 						if [ "$swLvl" -ge 200 ]; then
 							xdotool sleep 0.1
@@ -168,15 +168,15 @@ ec=$3
 if [ $((db+dust+ec)) -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
- 		  #  echo "Conducting DB experiment" #debug
+ 		    echo "Conducting DB experiment" #debug
 		xdotool mousemove --window "$WID" 950 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 	if [ "$2" -eq 1 ]; then
- 		  #  echo "Conducting dust experiment" #debug
+ 		    echo "Conducting dust experiment" #debug
 		xdotool mousemove --window "$WID" 1300 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 	if [ "$3" -eq 1 ]; then
- 		  #  echo "Conducting ec experiment" #debug
+ 		    echo "Conducting ec experiment" #debug
 		xdotool mousemove --window "$WID" 1650 800 sleep 0.2 click --window "$WID" --repeat 2 --delay 25 1 sleep 0.1
 	fi
 #else
