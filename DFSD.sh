@@ -27,40 +27,6 @@ do
 	  #  echo "Guardian finished: $SECONDS" #debug
 	xdotool sleep 0.1
 	
-	if [ "$lvl" -ge 50 ]; then
-		xdotool sleep 0.1
-		  #  echo "Campaign Loot: $SECONDS" #debug
-		campaignLoot
-		  #  echo "Campaign Loot collected: $SECONDS" #debug
-		xdotool sleep 0.1
-		  #  echo "Engi: $SECONDS" #debug
-		engi
-		  #  echo "Engi collected: $SECONDS" #debug
-	fi
-	
-	if [ "$lvl" -ge 200 ]; then
-		xdotool sleep 0.1
-		  #  echo "Oracle: $SECONDS" #debug
-		oracle
-		  #  echo "Oracle finished: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
-	if [ "$lvl" -ge 120 ]; then
-		xdotool sleep 0.1
-		  #  echo "Alchemy: $SECONDS" #debug
-		alchemy "$alchemyDB" "$alchemyDust" "$alchemyCoins"
-		  #  echo "Alchemy finished: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
-	if [ "$lvl" -ge 15 ]; then
-		  #  echo "Tavern: $SECONDS" #debug
-		tavern
-		  #  echo "Tavern collected: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
 	if [ "$lvl" -ge 10 ]; then
 		  #  echo "exped: $SECONDS" #debug
 		exped
@@ -72,7 +38,39 @@ do
  			  #  echo "lib finished: $SECONDS" #debug
 			xdotool sleep 0.1
 		fi
+		if [ "$lvl" -ge 15 ]; then
+			  #  echo "Tavern: $SECONDS" #debug
+			tavern
+			  #  echo "Tavern collected: $SECONDS" #debug
+			xdotool sleep 0.1
+			if [ "$lvl" -ge 50 ]; then
+				xdotool sleep 0.1
+				  #  echo "Campaign Loot: $SECONDS" #debug
+				campaignLoot
+				  #  echo "Campaign Loot collected: $SECONDS" #debug
+				xdotool sleep 0.1
+				  #  echo "Engi: $SECONDS" #debug
+				engi
+				  #  echo "Engi collected: $SECONDS" #debug
+				if [ "$lvl" -ge 120 ]; then
+					xdotool sleep 0.1
+					  #  echo "Alchemy: $SECONDS" #debug
+					alchemy "$alchemyDB" "$alchemyDust" "$alchemyCoins"
+					  #  echo "Alchemy finished: $SECONDS" #debug
+					xdotool sleep 0.1
+					if [ "$lvl" -ge 200 ]; then
+						xdotool sleep 0.1
+						  #  echo "Oracle: $SECONDS" #debug
+						oracle
+						  #  echo "Oracle finished: $SECONDS" #debug
+						xdotool sleep 0.1
+					fi
+				fi
+			fi
+	
+		fi
 	fi
+	
 	xdotool sleep 0.1
  	  #  echo "mapCollect: $SECONDS" #debug
 	mapCollect
@@ -101,62 +99,58 @@ do
 		  #  echo "swGuardian finished: $SECONDS" #debug
 		xdotool sleep 0.1
 	
-	if [ "$lvl" -ge 50 ]; then
-		xdotool sleep 0.1
-		  #  echo "swCampaignLoot: $SECONDS" #debug
-		campaignLoot
-		  #  echo "swCampaignLoot collected: $SECONDS" #debug
-		xdotool sleep 0.1
-		  #  echo "swEngi: $SECONDS" #debug
-		engi
-		  #  echo "swEngi collected: $SECONDS" #debug
-	fi
-	
-	if [ "$lvl" -ge 200 ]; then
-		xdotool sleep 0.1
-		  #  echo "swOracle: $SECONDS" #debug
-		oracle
-		  #  echo "swOracle finished: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
-	if [ "$lvl" -ge 120 ]; then
-		xdotool sleep 0.1
-		  #  echo "swAlchemy: $SECONDS" #debug
-		alchemy "$swAlchemyDB" "$swAlchemyDust" "$swAlchemyCoins"
-		  #  echo "swAlchemy finished: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
-	if [ "$lvl" -ge 15 ]; then
-		  #  echo "swTavern: $SECONDS" #debug
-		tavern
-		  #  echo "swTavern collected: $SECONDS" #debug
-		xdotool sleep 0.1
-	fi
-	
-	if [ "$lvl" -ge 10 ]; then
-		  #  echo "swExped: $SECONDS" #debug
-		exped
-		  #  echo "swExped finished: $SECONDS" #debug
-		xdotool sleep 0.1
-		if [ "$swFsTree" -ne 0 ]; then
- 			  #  echo "swLib: $SECONDS" #debug
-			lib "$swFsTree" "$swFs1" "$swFs2"
- 			  #  echo "swLib finished: $SECONDS" #debug
+		if [ "$lvl" -ge 10 ]; then
+			  #  echo "swExped: $SECONDS" #debug
+			exped
+			  #  echo "swExped finished: $SECONDS" #debug
 			xdotool sleep 0.1
+			if [ "$swFsTree" -ne 0 ]; then
+	 			  #  echo "swLib: $SECONDS" #debug
+				lib "$swFsTree" "$swFs1" "$swFs2"
+	 			  #  echo "swLib finished: $SECONDS" #debug
+				xdotool sleep 0.1
+			fi
+			if [ "$swLvl" -ge 15 ]; then
+				  #  echo "swTavern: $SECONDS" #debug
+				tavern
+				  #  echo "swTavern collected: $SECONDS" #debug
+				xdotool sleep 0.1
+				if [ "$swLvl" -ge 50 ]; then
+					xdotool sleep 0.1
+					  #  echo "swCampaignLoot: $SECONDS" #debug
+					campaignLoot
+					  #  echo "swCampaignLoot collected: $SECONDS" #debug
+					xdotool sleep 0.1
+					  #  echo "swEngi: $SECONDS" #debug
+					engi
+					  #  echo "swEngi collected: $SECONDS" #debug
+					if [ "$swLvl" -ge 120 ]; then
+						xdotool sleep 0.1
+						  #  echo "swAlchemy: $SECONDS" #debug
+						alchemy "$swAlchemyDB" "$swAlchemyDust" "$swAlchemyCoins"
+						  #  echo "swAlchemy finished: $SECONDS" #debug
+						xdotool sleep 0.1
+						if [ "$swLvl" -ge 200 ]; then
+							xdotool sleep 0.1
+							  #  echo "swOracle: $SECONDS" #debug
+							oracle
+							  #  echo "swOracle finished: $SECONDS" #debug
+							xdotool sleep 0.1
+						fi
+					fi
+				fi
+			fi
 		fi
-	fi
-	xdotool sleep 0.1
- 	  #  echo "swMapCollect: $SECONDS" #debug
-	mapCollect
- 	  #  echo "swMapCollect finished: $SECONDS" #debug
-	xdotool sleep 0.1
- 	  #  echo "swMapStart: $SECONDS" #debug
-	mapStart
- 	  #  echo "swMapStart finished: $SECONDS" #debug
-	xdotool sleep 0.1
-		xdotool sleep 30
+	
+		xdotool sleep 0.1
+	 	  #  echo "swMapCollect: $SECONDS" #debug
+		mapCollect
+	 	  #  echo "swMapCollect finished: $SECONDS" #debug
+		xdotool sleep 0.1
+	 	  #  echo "swMapStart: $SECONDS" #debug
+		mapStart
+	 	  #  echo "swMapStart finished: $SECONDS" #debug
+		xdotool sleep 0.1
 		serverSwap "$startingServer"
 	fi
 done
