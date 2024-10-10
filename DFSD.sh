@@ -186,6 +186,21 @@ fi
 reset
 }
 
+campaignFight () {
+xdotool search --name 'Firestone' windowactivate sleep 0.2
+WID=$(xdotool getactivewindow)
+xdotool key --window "$WID" m sleep 0.4
+xdotool mousemove --window "$WID" 1836 610 sleep 0.2 click --window "$WID" 1 sleep 0.2
+xdotool mousemove --window "$WID" 1020 630 sleep 0.2 click --window "$WID" 1 sleep 0.2
+xdotool mousemove --window "$WID" 600 950 sleep 0.2 click --window "$WID" 1 sleep 0.2
+xdotool sleep 50
+xdotool mousemove --window "$WID" 25 160 sleep 0.2 click --window "$WID" --repeat 3 --delay 10 1 sleep 0.2
+xdotool mousemove --window "$WID" 500 790 sleep 0.2 click --window "$WID" 1 sleep 0.2
+xdotool mousemove --window "$WID" 960 950 sleep 0.2 click --window "$WID" 1 sleep 0.2
+xdotool mousemove --window "$WID" 25 160 sleep 0.2 click --window "$WID" --repeat 3 --delay 10 1 sleep 0.2
+reset
+}
+
 campaignLoot () {
 xdotool search --name 'Firestone' windowactivate sleep 0.1
 WID=$(xdotool getactivewindow)
