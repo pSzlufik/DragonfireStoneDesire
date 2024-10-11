@@ -165,7 +165,8 @@ WID=$(xdotool getactivewindow)
 db=$1
 dust=$2
 ec=$3
-if [ $((db+dust+ec)) -ne 0 ]; then
+let sum=db+dust+ec
+if [ "$sum" -ne 0 ]; then
 	xdotool key --window "$WID" a sleep 0.4
 	if [ "$1" -eq 1 ]; then
  		    echo "Conducting DB experiment" #debug
