@@ -264,19 +264,20 @@ lib () {
 	xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1
 	xdotool mousemove --window "$WID" 590 990 sleep 0.25 click --window "$WID" 1 sleep 0.15
 	xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1
-	     #echo "lib Input: $1 $2 $3" #debug
+
+	# echo "lib Input: $1 $2 $3" #debug
 	fsPattern=$(($1 % 3))
-	#echo "Tree pattern: $fsPattern" #debug
+	# echo "Tree pattern: $fsPattern" #debug
 	let fsNode1=$2-1
 	let fsNode2=$3-1
-	     #echo "lib Upgrade indexes: $fsNode1 $fsNode2" #debug
-	temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTree[@]}")
-	     #echo "lib First matrix value: $temp" #debug
+	# echo "lib Upgrade indexes: $fsNode1 $fsNode2" #debug
+	temp=$(getMatrixElement "$fsPattern" "$fsNode1" 16 "${fsTreePatterns[@]}")
+	# echo "lib First matrix value: $temp" #debug
 	IFS=';' read -r fsCol1 fsRow1 <<< "$temp"
 	fsCol1Index=$((fsCol1-1))
 	fsRow1Index=$((fsRow1-1))
-	     #echo "lib Col/Row for first upagrde: $fsCol1 / $fsRow1" #debug
-	temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTree[@]}")
+	# echo "lib Col/Row for first upagrde: $fsCol1 / $fsRow1" #debug
+	temp=$(getMatrixElement "$fsPattern" "$fsNode2" 16 "${fsTreePatterns[@]}")
 	IFS=';' read -r fsCol2 fsRow2 <<< "$temp"
 	fsCol2Index=$((fsCol2-1))
 	fsRow2Index=$((fsRow2-1))
@@ -286,8 +287,9 @@ lib () {
 	if [[ "$fsCol1" -le 4 ]]; then
  		     #echo "Early parts of the fs tree for the first upgrade!" #debug
    		node1X=$(getSingleRowElement "$fsCol1Index" "${fsColsLeft[@]}")
-		     #echo "X coordinate of the first node: $node1X" #debug
-		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.15
+
+		  #  echo "X coordinate of the first node: $node1X" #debug
+		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 1200 --delay 1 4 sleep 0.15
 		xdotool mousemove --window "$WID" "$node1X" "$node1Y" sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 750 790 sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 20 20 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.15
@@ -295,8 +297,9 @@ lib () {
  		     #echo "Late parts of the fs tree for the first upgrade!" #debug
 		fsCol1Index=$((fsCol1-6))
    		node1X=$(getSingleRowElement "$fsCol1Index" "${fsColsRight[@]}")
-		     #echo "X coordinate of the first node: $node1X" #debug
-		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 120 --delay 1 5 sleep 0.15
+
+		  #  echo "X coordinate of the first node: $node1X" #debug
+		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 1200 --delay 1 5 sleep 0.15
 		xdotool mousemove --window "$WID" "$node1X" "$node1Y" sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 750 790 sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 20 20 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.15
@@ -313,8 +316,8 @@ lib () {
 	if [[ "$fsCol2" -le 4 ]]; then
  		     #echo "Early parts of the fs tree for the second upgrade!" #debug
    		node2X=$(getSingleRowElement "$fsCol2Index" "${fsColsLeft[@]}")
-		     #echo "X coordinate of first node: $node2X" #debug
-		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 120 --delay 1 4 sleep 0.15
+		  #  echo "X coordinate of first node: $node2X" #debug
+		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 1200 --delay 1 4 sleep 0.15
 		xdotool mousemove --window "$WID" "$node2X" "$node2Y" sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 750 790 sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 20 20 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.15
@@ -322,8 +325,9 @@ lib () {
  		     #echo "Late parts of the fs tree for the second upgrade!" #debug
 		fsCol2Index=$((fsCol2-6))
    		node2X=$(getSingleRowElement "$fsCol2Index" "${fsColsRight[@]}")
-		     #echo "X coordinate of the second node: $node2X" #debug
-		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 120 --delay 1 5 sleep 0.15
+
+		  #  echo "X coordinate of the second node: $node2X" #debug
+		xdotool mousemove --window "$WID" 1 1 sleep 0.25 click --window "$WID" --repeat 1200 --delay 1 5 sleep 0.15
 		xdotool mousemove --window "$WID" "$node2X" "$node2Y" sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 750 790 sleep 0.25 click --window "$WID" 1 sleep 0.15
 		xdotool mousemove --window "$WID" 20 20 sleep 0.25 click --window "$WID" --repeat 2 --delay 10 1 sleep 0.15
@@ -435,9 +439,10 @@ oracle () {
 serverSwap () {
 xdotool search --name 'Firestone' windowactivate sleep 0.15
 WID=$(xdotool getactivewindow)
-xdotool mousemove --window "$WID" 1840 50 sleep 0.2 click --window "$WID" 1
-xdotool mousemove --window "$WID" 1500 620 sleep 0.2 click --window "$WID" 1
-xdotool mousemove --window "$WID" 1300 170 sleep 0.2 click --window "$WID" 1
+xdotool mousemove --window "$WID" 1840 50 sleep 0.25 click --window "$WID" 1
+xdotool mousemove --window "$WID" 1500 620 sleep 0.25 click --window "$WID" 1
+xdotool mousemove --window "$WID" 1300 170 sleep 0.25 click --window "$WID" 1
+xdotool mousemove --window "$WID" 1180 160 sleep 0.2 click --window "$WID" 1
 
 if [ "$1" -eq 1 ]; then
 	     #echo "First favorite" #debug
@@ -459,7 +464,7 @@ elif [ "$1" -eq 6 ]; then
 	xdotool mousemove 1300 700 sleep 0.2 click --window "$WID" 1
 fi
 	xdotool mousemove 1110 720 sleep 0.2 click --window "$WID" 1
-xdotool sleep 45
+xdotool sleep 90
 }
 
 
@@ -481,6 +486,7 @@ getMatrixElement () {
 	shift 3			 # Shift off the first three parameters to get the matrix
 	local matrix=("$@") # Remaining arguments are the matrix elements
 	local index=$((row * cols + col))
+	#echo "matrix element row / col / cols / index: $row / $col / $cols / $index" #debug
 	echo "${matrix[$index]}"
 }
 
@@ -502,7 +508,7 @@ declare -a fsColsRight=(
 	"20" "520" "990"
 )
 
-declare -a fsTree=(
+declare -a fsTreePatterns=(
 "1;2" "1;4" "2;1" "2;3" "2;5" "3;2" "3;4" "4;3" "5;2" "5;4" "6;3" "7;1" "7;3" "7;5" "8;2" "8;4" "1;3" "2;2" "2;4" "3;1" "3;3" "3;5" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5" "1;1" "1;3" "1;5" "2;2" "2;4" "3;3" "4;3" "5;2" "5;4" "6;2" "6;4" "7;2" "7;4" "8;1" "8;3" "8;5"
 )
 
